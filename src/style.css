@@ -3,14 +3,17 @@
 }
 
 /* Global focus/hover fixes */
-button:focus, input:focus, select:focus, textarea:focus {
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
   outline: none !important;
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important;
 }
 
 button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.2s ease;
 }
 
@@ -40,13 +43,20 @@ button:active {
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
   animation: modalSlideIn 0.3s ease;
 }
 
 @keyframes modalSlideIn {
-  from { opacity: 0; transform: scale(0.95) translateY(-20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .time-badge {
@@ -56,9 +66,20 @@ button:active {
   font-weight: 600;
 }
 
-.time-badge.pending { background: #fef3c7; color: #92400e; }
-.time-badge.approved { background: #d1fae5; color: #065f46; }
-.time-badge.rejected { background: #fee2e2; color: #b91c1c; }
+.time-badge.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.time-badge.approved {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.time-badge.rejected {
+  background: #fee2e2;
+  color: #b91c1c;
+}
 
 /* Smooth button transitions */
 .btn-primary {
@@ -67,7 +88,7 @@ button:active {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .delete-lecture {
@@ -93,7 +114,7 @@ button:active {
 
 .lecture-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .lecture-card.warning {
@@ -102,8 +123,15 @@ button:active {
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-  50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+
+  50% {
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  }
 }
 
 .modal-overlay {
@@ -127,7 +155,7 @@ button:active {
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .time-badge {

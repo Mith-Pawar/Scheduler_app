@@ -5,23 +5,50 @@ import { ToastProvider } from './context/ToastContext';
 import AuthPage from './pages/AuthPage';
 import TeacherDashBoard from './pages/TeacherDashBoard.jsx';
 import AdminDashboard from './pages/AdminDashboard';
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import './App.css';
 
-// Decide which dashboard to render based on user role
 const RoleBasedDashboard = () => {
   const { currentUser } = useAuth();
   if (currentUser?.role === 'admin') {
     return <AdminDashboard />;
   }
-return <TeacherDashBoard />;
+  return <TeacherDashBoard />;
 };
 
-// Protect dashboard route: redirect to login if not authenticated
 const RequireAuth = ({ children }) => {
   const { currentUser, loading } = useAuth();
-  if (loading) return <div style={{ color: 'white', textAlign: 'center' }}>Loading...</div>;
+  if (loading) return <div style={{ color: 'white' }}>Loading...</div>;
   if (!currentUser) return <Navigate to="/" replace />;
   return children;
+};
+
+const AppContent = () => {
+  const { currentUser } = useAuth();
+
+  return (
+    <>
+      {currentUser && <Navbar />}
+      <div className="app-container">
+        <Routes>
+          <Route path="/" element={<AuthPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <RequireAuth>
+                <RoleBasedDashboard />
+              </RequireAuth>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+
+
+      {currentUser && <Footer />}
+    </>
+  );
 };
 
 function App() {
@@ -29,25 +56,11 @@ function App() {
     <BrowserRouter>
       <ToastProvider>
         <AuthProvider>
-          <Routes>
-            <Route path="/" element={<AuthPage />} />
-            <Route
-              path="/dashboard"
-              element={
-                <RequireAuth>
-                  <RoleBasedDashboard />
-                </RequireAuth>
-              }
-            />
-            {/* Redirect any unknown routes to login */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          <AppContent />
         </AuthProvider>
       </ToastProvider>
     </BrowserRouter>
   );
 }
 
-
-
-export default App
+export default App;
