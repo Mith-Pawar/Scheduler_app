@@ -13,10 +13,10 @@ const Footer = () => {
 
             <p>
                 Developed By:{" "}
-                <a href="LINK3" target="_blank" rel="noreferrer">Vaidik Patel</a>,{" "}
+                <a href="https://www.linkedin.com/in/vaidik-patel-524979388/" target="_blank" rel="noreferrer">Vaidik Patel</a>,{" "}
                 <a href="https://www.linkedin.com/in/mith-pawar-07b413320/" target="_blank" rel="noreferrer">Mith Pawar</a>,{" "}
                 <a href="https://www.linkedin.com/in/moksh-patel-b06a1232b/" target="_blank" rel="noreferrer">Moksh Patel </a>,{" "}
-                <a href="LINK3" target="_blank" rel="noreferrer">Abhishek   </a>,{" "}
+                <a href="https://www.linkedin.com/in/abhishek-kumar-03a041335/" target="_blank" rel="noreferrer">Abhishek   </a>,{" "}
                 <a href="https://www.linkedin.com/in/kush-pagariya/" target="_blank" rel="noreferrer">Kush Pagariya</a>,{" "}
                 <a href="https://www.linkedin.com/in/jinay-paleja-784612333/" target="_blank" rel="noreferrer">Jinay Paleja</a>,{" "}
             </p>
