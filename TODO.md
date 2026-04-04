@@ -1,15 +1,10 @@
-# UI Spacing Improvements - Approved Plan Steps
+# TODO: Remove Auto-Scroll/SlideUp Effect on Auth Pages
 
-## Plan Summary
-- Decrease width of faculty portal badge in AuthPage.jsx via CSS.
-- Increase padding/gaps globally: cards (4rem), grids (2.5rem), inputs (2.5rem mb), etc.
+## Steps:
+- [x] Step 1: Edit App.css to disable smooth scroll + remove slideUp animation on auth pages
 
-## Steps to Complete
-- [x] Step 1: Edit Scheduler/src/App.css with all padding/gap increases and faculty-badge width reduction.
-- [x] Step 2: Edit Scheduler/src/pages/AuthPage.jsx inline padding.
-- [x] Step 3: Test with `cd Scheduler && npm run dev`.
-- [x] Step 4: Verify responsive design and badge width.
-- [ ] Step 5: attempt_completion.
+- [x] Step 2: Update AuthPage.jsx toggle logic for smoother form switch without layout shift
 
-Current Progress: Plan approved, TODO created.
+- [ ] Step 3: Test scrolling on AuthPage.jsx and SignupPage.jsx
+- [ ] Step 4: Mark complete
 

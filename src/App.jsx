@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 import AuthPage from './pages/AuthPage';
@@ -27,10 +27,12 @@ const RequireAuth = ({ children }) => {
 
 const AppContent = () => {
   const { currentUser } = useAuth();
+  const location = useLocation();
+  const isAuthPage = location.pathname === '/';
 
   return (
     <>
-      {currentUser && <Navbar />}
+      {currentUser && !isAuthPage && <Navbar />}
       <div className="app-container">
         <Routes>
           <Route path="/" element={<AuthPage />} />
@@ -46,7 +48,7 @@ const AppContent = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
-      {currentUser && <Footer />}
+      {currentUser && !isAuthPage && <Footer />}
     </>
   );
 };
