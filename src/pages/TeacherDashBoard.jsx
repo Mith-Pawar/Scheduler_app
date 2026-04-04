@@ -234,7 +234,22 @@ const TeacherDashboard = () => {
       {/* My Requests */}
       <h3>My Leave Requests</h3>
       <div className="lecture-grid">
-        {myLeaveRequests.length === 0 ? <p>No requests</p> : myLeaveRequests.map(req => (
+        {myLeaveRequests.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '2.5rem 2rem', background: 'rgba(239, 68, 68, 0.05)', borderRadius: '1.5rem', gridColumn: '1 / -1' }}>
+            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ margin: '0 auto 1rem', display: 'block' }}>
+              {/* Paper/document */}
+              <rect x="25" y="20" width="50" height="65" rx="4" fill="none" stroke="#ef4444" strokeWidth="2"/>
+              {/* Lines on paper */}
+              <line x1="35" y1="35" x2="65" y2="35" stroke="#ef4444" strokeWidth="1.5" opacity="0.4"/>
+              <line x1="35" y1="45" x2="65" y2="45" stroke="#ef4444" strokeWidth="1.5" opacity="0.4"/>
+              <line x1="35" y1="55" x2="55" y2="55" stroke="#ef4444" strokeWidth="1.5" opacity="0.4"/>
+              {/* Checkmark */}
+              <circle cx="72" cy="65" r="12" fill="#2e7d64"/>
+              <path d="M68 65 L70.5 67.5 L75 63" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <p style={{ color: '#666', fontSize: '0.95rem', margin: '0' }}>No leave requests yet</p>
+          </div>
+        ) : myLeaveRequests.map(req => (
           <div key={req.id} className="lecture-card">
             <div>Lecture {req.lectureId} on {req.date}</div>
             <div>{req.reason}</div>
@@ -245,7 +260,21 @@ const TeacherDashboard = () => {
 
       <h3>My Swap Requests</h3>
       <div className="lecture-grid">
-        {mySwapRequests.length === 0 ? <p>No requests</p> : mySwapRequests.map(req => (
+        {mySwapRequests.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '2.5rem 2rem', background: 'rgba(239, 68, 68, 0.05)', borderRadius: '1.5rem', gridColumn: '1 / -1' }}>
+            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ margin: '0 auto 1rem', display: 'block' }}>
+              {/* Two boxes */}
+              <rect x="15" y="30" width="35" height="40" rx="4" fill="none" stroke="#ef4444" strokeWidth="2"/>
+              <rect x="50" y="30" width="35" height="40" rx="4" fill="none" stroke="#ef4444" strokeWidth="2"/>
+              {/* Arrows */}
+              <path d="M52 55 L60 55" stroke="#dc2626" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+              <path d="M60 55 L56 51" stroke="#dc2626" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M48 55 L40 55" stroke="#dc2626" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+              <path d="M40 55 L44 51" stroke="#dc2626" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <p style={{ color: '#666', fontSize: '0.95rem', margin: '0' }}>No swap requests yet</p>
+          </div>
+        ) : mySwapRequests.map(req => (
           <div key={req.id} className="lecture-card">
             <div>Lecture {req.lectureId} with {req.targetTeacher}</div>
             <span className={`time-badge ${req.status === 'pending' ? 'pending' : req.status === 'approved' ? 'approved' : 'rejected'}`}>{req.status}</span>
@@ -256,13 +285,44 @@ const TeacherDashboard = () => {
       <h3><i className="fas fa-calendar-alt"></i> Your Timetable (Admin Assigned)</h3>
       <div className="lecture-grid">
         {lectures.length === 0 ? (
-          <p style={{ padding: '1rem', background: '#f1f5f9', borderRadius: '1rem' }}>No timetable yet 📅</p>
+          <div style={{ textAlign: 'center', padding: '3rem 2rem', background: 'linear-gradient(135deg, rgba(255,255,255,0.9), rgba(239, 68, 68, 0.05))', borderRadius: '1.5rem', border: '2px dashed rgba(239, 68, 68, 0.2)' }}>
+            <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ margin: '0 auto 1rem', display: 'block' }}>
+              {/* Calendar background */}
+              <rect x="20" y="30" width="100" height="90" rx="8" fill="none" stroke="#ef4444" strokeWidth="2.5"/>
+              {/* Calendar top bar */}
+              <rect x="20" y="30" width="100" height="20" rx="8" fill="#ef4444" opacity="0.1"/>
+              {/* Days header */}
+              <circle cx="35" cy="40" r="3" fill="#ef4444"/>
+              <circle cx="50" cy="40" r="3" fill="#ef4444"/>
+              <circle cx="65" cy="40" r="3" fill="#ef4444"/>
+              <circle cx="80" cy="40" r="3" fill="#ef4444"/>
+              <circle cx="95" cy="40" r="3" fill="#ef4444"/>
+              <circle cx="110" cy="40" r="3" fill="#ef4444"/>
+              {/* Grid lines */}
+              <line x1="20" y1="55" x2="120" y2="55" stroke="#ef4444" strokeWidth="1" opacity="0.3"/>
+              <line x1="20" y1="70" x2="120" y2="70" stroke="#ef4444" strokeWidth="1" opacity="0.3"/>
+              <line x1="20" y1="85" x2="120" y2="85" stroke="#ef4444" strokeWidth="1" opacity="0.3"/>
+              <line x1="20" y1="100" x2="120" y2="100" stroke="#ef4444" strokeWidth="1" opacity="0.3"/>
+              {/* Date dots */}
+              <circle cx="35" cy="62" r="2" fill="#ef4444" opacity="0.5"/>
+              <circle cx="50" cy="62" r="2" fill="#ef4444" opacity="0.5"/>
+              <circle cx="65" cy="62" r="2" fill="#ef4444" opacity="0.5"/>
+              {/* Plus icon (add) */}
+              <line x1="70" y1="115" x2="70" y2="125" stroke="#dc2626" strokeWidth="2" strokeLinecap="round"/>
+              <line x1="65" y1="120" x2="75" y2="120" stroke="#dc2626" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+            <h4 style={{ color: '#9e2a2b', marginBottom: '0.5rem', fontSize: '1.1rem', fontWeight: '600' }}>No Timetable Assigned Yet</h4>
+            <p style={{ color: '#6b7280', fontSize: '0.9rem', margin: '0' }}>Admin will assign your lectures soon. Check back later!</p>
+          </div>
         ) : lectures.map(lec => {
           const startDate = new Date(lec.startTime);
           const diffMinutes = (startDate - new Date()) / 60000;
           const isWarning = diffMinutes <= 5 && diffMinutes > 0;
           return (
-            <div key={lec.id} className={`lecture-card ${isWarning ? 'warning' : ''}`}>
+            <div
+              key={lec.id}
+              className={`lecture-card ${isWarning ? 'warning' : ''}`}
+            >
               <div className="lecture-title">
                 <span><i className="fas fa-chalkboard"></i> {lec.title}</span>
               </div>

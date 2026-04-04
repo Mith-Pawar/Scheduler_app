@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 import AuthPage from './pages/AuthPage';
+
 import TeacherDashBoard from './pages/TeacherDashBoard.jsx';
 import AdminDashboard from './pages/AdminDashboard';
 import Navbar from "./components/Navbar";
@@ -33,6 +34,7 @@ const AppContent = () => {
       <div className="app-container">
         <Routes>
           <Route path="/" element={<AuthPage />} />
+
           <Route
             path="/dashboard"
             element={
@@ -44,8 +46,6 @@ const AppContent = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
-
-
       {currentUser && <Footer />}
     </>
   );

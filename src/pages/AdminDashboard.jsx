@@ -16,7 +16,7 @@ import LeaveRequestCard from '../components/LeaveRequestCard.jsx';
 import SwapRequestCard from '../components/SwapRequestCard.jsx';
 
 const AdminDashboard = () => {
-  const { currentUser, logout } = useAuth();
+  const { currentUser, logout, register } = useAuth();
   const navigate = useNavigate();
   const toast = useToast();
   const [teachers, setTeachers] = useState([]);
@@ -51,20 +51,15 @@ const AdminDashboard = () => {
       toast.showToast('All fields are required', 'error');
       return;
     }
-    const users = getUsers();
-    if (users.find(u => u.username === username)) {
-      toast.showToast('Username already exists', 'error');
-      return;
+    const result = register(fullName, username, email, password, 'teacher');
+    if (result.success) {
+      const newUser = { fullName, username, email, password, role: 'teacher' };
+      setTeachers(prev => [...prev, newUser]);
+      setNewTeacher({ fullName: '', username: '', email: '', password: '' });
+      toast.showToast(`Teacher ${fullName} added successfully`, 'success');
+    } else {
+      toast.showToast(result.error, 'error');
     }
-    if (users.find(u => u.email === email)) {
-      toast.showToast('Email already registered', 'error');
-      return;
-    }
-    const newUser = { fullName, username, email, password, role: 'teacher' };
-    saveUsers([...users, newUser]);
-    setTeachers(prev => [...prev, newUser]);
-    setNewTeacher({ fullName: '', username: '', email: '', password: '' });
-    toast.showToast(`Teacher ${fullName} added successfully`, 'success');
   };
 
   const handleDeleteTeacher = (username) => {
@@ -195,8 +190,11 @@ const AdminDashboard = () => {
             </form>
           </div>
           <div className="lecture-grid" style={{ gridTemplateColumns: '1fr' }}>
-            {teachers.map(teacher => (
-              <div key={teacher.username} className="lecture-card">
+            {teachers.map((teacher) => (
+              <div
+                key={teacher.username}
+                className="lecture-card"
+              >
                 <div className="lecture-title">
                   <span><i className="fas fa-user-graduate"></i> {teacher.fullName}</span>
                   <div>
@@ -230,10 +228,23 @@ const AdminDashboard = () => {
               </div>
               <div className="lecture-grid">
                 {teacherLectures.length === 0 ? (
-                  <p>No lectures. Add above!</p>
+                  <div style={{ textAlign: 'center', padding: '2.5rem 2rem', background: 'rgba(239, 68, 68, 0.05)', borderRadius: '1.5rem', gridColumn: '1 / -1' }}>
+                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ margin: '0 auto 1rem', display: 'block' }}>
+                      <rect x="25" y="30" width="50" height="50" rx="4" fill="none" stroke="#ef4444" strokeWidth="2"/>
+                      <line x1="35" y1="45" x2="65" y2="45" stroke="#ef4444" strokeWidth="1.5" opacity="0.5"/>
+                      <line x1="35" y1="55" x2="55" y2="55" stroke="#ef4444" strokeWidth="1.5" opacity="0.5"/>
+                      <circle cx="65" cy="70" r="8" fill="none" stroke="#dc2626" strokeWidth="1.5"/>
+                      <line x1="62" y1="70" x2="68" y2="70" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round"/>
+                      <line x1="65" y1="67" x2="65" y2="73" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                    <p style={{ color: '#666', fontSize: '0.95rem', margin: '0' }}>No lectures assigned to this teacher</p>
+                  </div>
                 ) : (
-                  teacherLectures.map(lec => (
-                    <div key={lec.id} className="lecture-card">
+                  teacherLectures.map((lec) => (
+                    <div
+                      key={lec.id}
+                      className="lecture-card"
+                    >
                       <div className="lecture-title">
                         <span><i className="fas fa-chalkboard"></i> {lec.title}</span>
                         <button className="delete-lecture" onClick={() => handleDeleteLecture(lec.id)}>
@@ -257,13 +268,31 @@ const AdminDashboard = () => {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
         <div>
           <h4>Leave Requests</h4>
-          {leaveRequests.length === 0 ? <p>No pending</p> : leaveRequests.map(req => (
+          {leaveRequests.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '2rem', background: 'rgba(239, 68, 68, 0.05)', borderRadius: '1rem' }}>
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ margin: '0 auto 0.5rem', display: 'block' }}>
+                <path d="M20 50 L30 60 L60 30" stroke="#ef4444" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                <circle cx="40" cy="40" r="32" stroke="#ef4444" strokeWidth="2" fill="none" opacity="0.4"/>
+              </svg>
+              <p style={{ color: '#666', fontSize: '0.85rem', margin: '0' }}>No pending leave requests</p>
+            </div>
+          ) : leaveRequests.map(req => (
             <LeaveRequestCard key={req.id} request={req} onApprove={(id) => handleLeaveAction(id, 'approved')} onReject={(id) => handleLeaveAction(id, 'rejected')} />
           ))}
         </div>
           <div>
             <h4>Swap Requests</h4>
-            {swapRequests.length === 0 ? <p>No pending</p> : swapRequests.map(req => (
+            {swapRequests.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '2rem', background: 'rgba(239, 68, 68, 0.05)', borderRadius: '1rem' }}>
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ margin: '0 auto 0.5rem', display: 'block' }}>
+                  <rect x="15" y="25" width="20" height="30" rx="2" fill="none" stroke="#ef4444" strokeWidth="2"/>
+                  <rect x="45" y="25" width="20" height="30" rx="2" fill="none" stroke="#ef4444" strokeWidth="2"/>
+                  <path d="M37 45 L43 45" stroke="#dc2626" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+                  <path d="M43 45 L40 42" stroke="#dc2626" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <p style={{ color: '#666', fontSize: '0.85rem', margin: '0' }}>No pending swap requests</p>
+              </div>
+            ) : swapRequests.map(req => (
               <SwapRequestCard key={req.id} request={req} onApprove={(id) => handleSwapAction(id, 'approved')} onReject={(id) => handleSwapAction(id, 'rejected')} />
             ))}
           </div>
