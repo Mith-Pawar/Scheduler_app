@@ -1,10 +1,17 @@
-# TODO: Remove Auto-Scroll/SlideUp Effect on Auth Pages
+## Task: Fix role-based dashboard redirect + Teacher UI improvements
 
-## Steps:
-- [x] Step 1: Edit App.css to disable smooth scroll + remove slideUp animation on auth pages
+### Steps:
+✅ 1. App.jsx routes + debug  
+✅ 2. Navbar links  
+✅ 3. AuthPage redirect logic + useEffect fix  
 
-- [x] Step 2: Update AuthPage.jsx toggle logic for smoother form switch without layout shift
+**4. TeacherDashBoard UI Improvements** ⏳
+- Hero stats cards (lectures today, requests)
+- Enhanced timetable grid w/ status colors
+- Better modals + animations
+- Quick actions bar
 
-- [ ] Step 3: Test scrolling on AuthPage.jsx and SignupPage.jsx
-- [ ] Step 4: Mark complete
+#### 5. Test: `npm run dev` → login teacher/admin → verify redirects/UI
+
+**Progress:** Redirects fixed. UI next.
 

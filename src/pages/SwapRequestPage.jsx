@@ -10,19 +10,25 @@ const SwapRequestPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (currentUser?.role !== 'admin') return;
     const allRequests = getSwapRequests();
     setRequests(allRequests.filter(r => r.status === 'pending'));
     setLoading(false);
-  }, []);
+  }, [currentUser]);
 
   const handleAction = (id, action) => {
-    const updated = requests.map(req => 
+    const allRequests = getSwapRequests();
+    const updated = allRequests.map(req => 
       req.id === id ? { ...req, status: action } : req
     );
     saveSwapRequests(updated);
     setRequests(updated.filter(r => r.status === 'pending'));
     toast.showToast(`Swap request ${action}`, 'success');
   };
+
+  if (currentUser?.role !== 'admin') {
+    return <div className="dashboard-card">Admin only</div>;
+  }
 
   return (
     <div className="dashboard-card">

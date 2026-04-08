@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
@@ -17,9 +18,19 @@ const AuthPage = () => {
     role: 'teacher',
   });
   const [error, setError] = useState('');
-  const { login, register } = useAuth();
+  const { login, register, currentUser } = useAuth();
   const navigate = useNavigate();
   const toast = useToast();
+
+  // Auto-redirect to role dashboard after login
+  useEffect(() => {
+    if (currentUser) {
+      console.log('Auto-redirecting role:', currentUser.role); // Debug
+      const rolePath = currentUser.role === 'admin' ? '/admin-dashboard' : '/teacher-dashboard';
+      navigate(rolePath, { replace: true });
+    }
+  }, [currentUser, navigate]);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,12 +48,13 @@ const AuthPage = () => {
       const res = login(formData.username, formData.password);
       setLoading(false);
       if (res.success) {
-        toast.showToast('Login successful! Redirecting...', 'success');
-        setTimeout(() => navigate('/dashboard'), 800);
+        toast.showToast('Login successful!', 'success');
+        // useEffect will handle redirect
       } else {
         setError(res.error);
       }
     }, 500);
+
   };
 
   const handleRegister = (e) => {
@@ -61,19 +73,15 @@ const AuthPage = () => {
       const res = register(fullName, username, email, password, role);
       setLoading(false);
       if (res.success) {
-        toast.showToast('Registration successful! Please login.', 'success');
-        setIsLogin(true);
-        setFormData({
-          username: '',
-          password: '',
-          fullName: '',
-          email: '',
-          confirmPassword: '',
-          role: 'teacher',
-        });
+        // Auto-login after registration
+        setTimeout(() => {
+          login(formData.username, formData.password);
+        }, 500);
+        toast.showToast('Registration successful! Logging in...', 'success');
       } else {
         setError(res.error);
       }
+
     }, 500);
   };
 

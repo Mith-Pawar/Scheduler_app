@@ -15,10 +15,11 @@ const Navbar = () => {
 
             <div className={`navbar-links ${open ? "active" : ""}`}>
                 <Link to="/" onClick={() => setOpen(false)}>Home</Link>
-                <Link to="/admin" onClick={() => setOpen(false)}>Admin</Link>
-                <Link to="/teacher" onClick={() => setOpen(false)}>Teacher</Link>
-                <Link to="/leave" onClick={() => setOpen(false)}>Leave</Link>
-                <Link to="/swap" onClick={() => setOpen(false)}>Swap</Link>
+                <Link to="/admin-dashboard" onClick={() => setOpen(false)}>Admin</Link>
+                <Link to="/teacher-dashboard" onClick={() => setOpen(false)}>Teacher</Link>
+                <Link to="/leave-requests" onClick={() => setOpen(false)}>Leave</Link>
+                <Link to="/swap-requests" onClick={() => setOpen(false)}>Swap</Link>
+
             </div>
         </div>
     );

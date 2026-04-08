@@ -17,7 +17,8 @@ const LeaveRequestsPage = () => {
   }, [currentUser]);
 
   const handleAction = (id, action) => {
-    const updated = requests.map(req => 
+    const allRequests = getLeaveRequests();
+    const updated = allRequests.map(req => 
       req.id === id ? { ...req, status: action } : req
     );
     saveLeaveRequests(updated);
@@ -56,7 +57,3 @@ const LeaveRequestsPage = () => {
 };
 
 export default LeaveRequestsPage;
-</xai:function_call >
-
-<xai:function_call name="create_file">
-<parameter name="absolute_path">Scheduler/src/pages/AdminRequest.jsx
